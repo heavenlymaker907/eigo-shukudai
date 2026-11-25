@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>英語宿題</title>
+<style>
+:root{
+  --bg:#f6f5f2; --surface:#ffffff; --surface2:#fcfcfb; --line:#e6e2d9; --line2:#ddd8cc;
+  --text:#1c2321; --muted:#6b7280; --muted2:#8a8f98;
+  --navy:#1a365d; --teal:#0f766e; --teal-bg:#e6f4f1; --amber:#92400e; --amber-bg:#fef3c7;
+  --rose:#9f1239; --rose-bg:#fff1f2; --blue-bg:#eff6ff;
+  --radius:12px;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#111417; --surface:#1a1e23; --surface2:#1e2329; --line:#2a2f36; --line2:#333a44; --text:#eef0f2; --muted:#9aa3ad; --muted2:#7c8691; --navy:#93c5fd; --teal:#2dd4bf; --teal-bg:#0f2e2a; --amber-bg:#2f2410; --rose-bg:#33121b; --blue-bg:#17233a; --shadow:0 1px 3px rgba(0,0,0,.3)}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--navy)}
+button,[role="button"],select,input{font:inherit}
+button,select,input[type="search"]{min-height:44px}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px 56px}
+.top{padding:22px 0 6px}
+.top h1{font-size:28px;line-height:1.2;letter-spacing:-.02em;margin:0;font-weight:800}
+.top p{margin:6px 0 0;color:var(--muted);font-size:14.5px;line-height:1.6}
+.top-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 10px;font-size:12.5px;color:var(--muted)}
+.pill b{color:var(--text)}
+.how{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin-top:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.how div{font-size:13.5px}
+.how strong{display:block;font-size:13px;margin-bottom:2px}
+.how span{color:var(--muted);font-size:13px;line-height:1.5;display:block}
+@media(max-width:640px){.how{grid-template-columns:1fr}.top h1{font-size:24px}}
+
+.controls{position:sticky;top:0;z-index:20;background:color-mix(in srgb, var(--bg) 92%, transparent);backdrop-filter:blur(10px);padding:14px 0 10px;margin-top:18px;border-bottom:1px solid var(--line)}
+.search-row{display:flex;gap:8px}
+.search-box{flex:1;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line2);border-radius:999px;padding:0 14px}
+.search-box input{border:0;outline:0;background:transparent;width:100%;height:44px;font-size:15px;color:var(--text)}
+.search-box input::placeholder{color:var(--muted2)}
+.select{border:1px solid var(--line2);background:var(--surface);border-radius:999px;padding:0 12px;height:44px;color:var(--text)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip{border:1px solid var(--line2);background:var(--surface);color:var(--text);border-radius:999px;padding:8px 13px;min-height:38px;font-size:13.5px;cursor:pointer}
+.chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media(prefers-color-scheme:dark){.chip.active{background:#eef0f2;color:#111;border-color:#eef0f2}}
+.result-line{display:flex;justify-content:space-between;align-items:center;margin:16px 2px 10px;color:var(--muted);font-size:13px}
+.unit-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:22px 2px 10px}
+.unit-head h2{font-size:17px;margin:0;letter-spacing:-.01em}
+.unit-head span{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin:0 2px 12px}
+.step-dot{font-size:12px;border:1px dashed var(--line2);border-radius:999px;padding:5px 9px;color:var(--muted);background:var(--surface)}
+.step-dot.done{border-style:solid;background:var(--teal-bg);color:var(--teal);border-color:transparent;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+.card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.badge{font-size:11.5px;font-weight:700;letter-spacing:.02em;padding:4px 8px;border-radius:999px;white-space:nowrap}
+.badge-extra{background:var(--blue-bg);color:var(--navy)}
+.badge-review{background:#fdf2e9;color:#9a3412;border:1px solid #fed7aa}
+@media(prefers-color-scheme:dark){.badge-review{background:#2a1a0f;color:#fdba74;border-color:#431407}}
+.date{font-size:12.5px;color:var(--muted);white-space:nowrap;padding-top:3px}
+.card h3{margin:0;font-size:16.5px;line-height:1.4;letter-spacing:-.01em}
+.card p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.6}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11.5px;padding:3px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);background:var(--surface2)}
+.tag.hot{color:var(--rose);background:var(--rose-bg);border-color:transparent;font-weight:600}
+.tag.focus{color:var(--amber);background:var(--amber-bg);border-color:transparent;font-weight:600}
+.card-foot{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:4px;border-top:1px solid var(--line)}
+.btn{appearance:none;border:1px solid var(--line2);background:var(--surface);color:var(--text);border-radius:999px;padding:9px 14px;cursor:pointer;font-size:14px;font-weight:600;min-height:42px;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media(prefers-color-scheme:dark){.btn.primary{background:#eef0f2;color:#111;border-color:#eef0f2}}
+.btn:active{transform:scale(.98)}
+.meta{font-size:12.5px;color:var(--muted)}
+.empty{background:var(--surface);border:1px dashed var(--line2);border-radius:14px;padding:28px 18px;text-align:center;color:var(--muted)}
+.empty strong{color:var(--text);display:block;margin-bottom:4px}
+
+/* Detail */
+.detail{display:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;margin-top:16px}
+.detail.open{display:block}
+.detail-head{padding:18px 18px 14px;border-bottom:1px solid var(--line);background:var(--surface2)}
+.detail-head h2{margin:6px 0 4px;font-size:20px;line-height:1.3}
+.detail-head p{margin:0;color:var(--muted);font-size:13.5px}
+.detail-toolbar{display:flex;gap:8px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid var(--line);align-items:center}
+.detail-toolbar .spacer{flex:1}
+.toggle{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:3px}
+.toggle button{border:0;background:transparent;padding:7px 12px;border-radius:999px;cursor:pointer;font-size:13.5px;min-height:36px}
+.toggle button.active{background:var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.12);font-weight:700}
+.qs{padding:6px 18px 18px}
+.q{padding:16px 0;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:0}
+.q-num{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--teal);text-transform:uppercase}
+.sec-head{font-size:15.5px;font-weight:800;margin:22px 0 2px;padding-top:16px;border-top:2px solid var(--line2);letter-spacing:-.01em}
+.sec-head:first-child{border-top:0;padding-top:4px;margin-top:4px}
+.sec-note{font-size:13px;color:var(--muted);margin:0 0 2px}
+.points{margin:14px 18px 0;background:var(--blue-bg);border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.8}
+.points strong{display:block;font-size:12.5px;letter-spacing:.04em;margin-bottom:4px;color:var(--navy)}
+.points ul{margin:0;padding-left:18px}
+.q-text{font-size:15.5px;line-height:1.7;margin:6px 0 10px}
+.q-text .en{font-family:Georgia,"Times New Roman",serif;font-size:16.5px}
+.blank{display:inline-block;min-width:72px;border-bottom:2px solid var(--text);text-align:center;font-weight:700}
+.choices{display:grid;gap:8px}
+.choice{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14.5px;background:var(--surface2);display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;min-height:44px}
+.choice:hover{border-color:var(--line2)}
+.choice.correct{border-color:var(--teal);background:var(--teal-bg)}
+.choice.wrong{border-color:#e11d48;background:var(--rose-bg)}
+.choice .lab{font-weight:800;flex-shrink:0}
+.answer-box{display:none;margin-top:12px;background:var(--teal-bg);border-radius:10px;padding:12px 13px;font-size:14px;line-height:1.7}
+.answer-box.show{display:block}
+.answer-box b{color:var(--teal)}
+.fill-note{font-size:13px;color:var(--muted)}
+.print-hint{font-size:12.5px;color:var(--muted);background:var(--bg);border:1px dashed var(--line2);border-radius:10px;padding:10px 12px;margin:0 18px 16px;line-height:1.6}
+.footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;line-height:1.7}
+
+/* Download sheet (modal) */
+.dl-backdrop{position:fixed;inset:0;background:rgba(10,14,18,.55);z-index:60;display:flex;align-items:flex-end;justify-content:center;padding:0}
+@media(min-width:640px){.dl-backdrop{align-items:center;padding:20px}}
+.dl-card{background:var(--surface);color:var(--text);width:100%;max-width:520px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:20px 18px calc(18px + env(safe-area-inset-bottom));box-shadow:0 12px 40px rgba(0,0,0,.28)}
+@media(min-width:640px){.dl-card{border-radius:18px;padding-bottom:18px}}
+.dl-card h2{margin:0 0 4px;font-size:18px;line-height:1.35}
+.dl-meta{margin:0 0 8px;color:var(--muted);font-size:13px}
+.dl-note{margin:10px 0 0;color:var(--muted);font-size:13px;line-height:1.65}
+.dl-actions{display:grid;gap:8px;margin-top:14px}
+.dl-actions .btn{justify-content:center;text-align:center;width:100%}
+.dl-main{font-size:15px;padding:12px 14px}
+.dl-msg{margin:10px 0 0;font-size:13.5px;font-weight:600;color:var(--teal);min-height:1.2em}
+.dl-close{width:100%;justify-content:center;margin-top:14px}
+
+/* Print sheet (in-page printable view) */
+#printSheet{display:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;margin-top:16px}
+body.sheet-mode #printSheet{display:block}
+body.sheet-mode .top,body.sheet-mode .controls,body.sheet-mode .result-line,body.sheet-mode #list,body.sheet-mode #empty,body.sheet-mode .footer,body.sheet-mode #detail{display:none!important}
+.sheet-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line);background:var(--surface2)}
+.sheet-toolbar .spacer{flex:1}
+.sheet-body{padding:18px}
+.sheet-body h2{margin:4px 0 6px;font-size:20px;line-height:1.35}
+.sheet-meta{color:var(--muted);font-size:13px;margin:0 0 6px}
+.sheet-points{background:var(--blue-bg);border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.8;margin:12px 0 4px}
+.sheet-points ul{margin:6px 0 0;padding-left:18px}
+
+#pdfToast{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;z-index:80;background:#1c2321;color:#fff;padding:12px 18px;border-radius:999px;font-size:14px;font-weight:600;box-shadow:0 8px 28px rgba(0,0,0,.3);display:none;max-width:92vw;text-align:center}
+#pdfToast.show{display:block}
+@media print{
+  .controls,.how,.card,.unit-head,.steps,.result-line,.footer,.detail-toolbar,.print-hint,.top-meta,.dl-backdrop,.sheet-toolbar{display:none!important}
+  body{background:#fff;color:#000}
+  .wrap{max-width:none;padding:0}
+  .detail{box-shadow:none;border:0;display:block!important}
+  body.sheet-mode .detail{display:none!important}
+  #printSheet{box-shadow:none;border:0}
+  .answer-box{display:none}
+  .answer-box.show{display:block;background:#f3f4f6}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>英語宿題</h1>
+    <p>授業で学んだ単元の「もう少し解きたい」をここに集めています。新しいセットが追加されたら、このページにそのまま並びます。</p>
+    <div class="top-meta">
+      <span class="pill">公開中 <b id="countSets">—</b> セット</span>
+      <span class="pill">全 <b id="countQs">—</b> 問</span>
+      <span class="pill">最終追加 <b>2026年11月24日</b></span>
+    </div>
+    <div class="how" aria-label="使い方">
+      <div><strong>1. 探す</strong><span>単元名・日付・キーワードで検索できます。「まとめ」だけ絞ることもできます。</span></div>
+      <div><strong>2. 解く</strong><span>「問題を見る」でそのまま解けます。選択肢を押すと、その場で正誤が分かります。</span></div>
+      <div><strong>3. PDFでダウンロード</strong><span>各セットの「PDFダウンロード」を押すと、その場でPDFファイルがダウンロードされます。印刷して紙のプリントとしても使えます。</span></div>
+    </div>
+  </header>
+
+  <div class="controls" id="controls">
+    <div class="search-row">
+      <label class="search-box" aria-label="検索">
+        <span aria-hidden="true">⌕</span>
+        <input id="search" type="search" placeholder="単元・日付・キーワードで探す　例：名詞節 / 11月24日 / 頻出" autocomplete="off">
+      </label>
+      <select id="sort" class="select" aria-label="並び替え">
+        <option value="new">新しい順</option>
+        <option value="old">古い順</option>
+        <option value="unit">単元順</option>
+      </select>
+    </div>
+    <div class="chips" role="group" aria-label="絞り込み">
+      <button class="chip active" data-filter="all">すべて</button>
+      <button class="chip" data-filter="extra">追加演習</button>
+      <button class="chip" data-filter="review">まとめ振り返り</button>
+      <button class="chip" data-filter="hot">頻出のみ</button>
+      <button class="chip" data-filter="focus">重点復習のみ</button>
+    </div>
+    <div class="chips" id="unitChips" style="margin-top:8px"></div>
+  </div>
+
+  <div class="result-line"><span id="resultText">—</span><span>解答は各セットの中で開けます</span></div>
+
+  <!-- Detail view -->
+  <section id="detail" class="detail" aria-live="polite"></section>
+
+  <!-- Print sheet view -->
+  <section id="printSheet" aria-live="polite"></section>
+
+  <main id="list"></main>
+  <div id="empty" class="empty" style="display:none"><strong>見つかりませんでした</strong>検索ワードを短くするか、絞り込みを「すべて」に戻してみてください。</div>
+
+  <footer class="footer">
+    <p>このページは追加演習とまとめ振り返り専用です。通常の宿題とは別に、学んだ単元を繰り返し解くために使ってください。分からない問題は、解説を読んでからもう一度自分で解き直すのがおすすめです。</p>
+  </footer>
+</div>
+
+<div id="pdfToast" role="status"></div>
+
+<!-- Download sheet (fallback) -->
+<div id="dlModal" class="dl-backdrop" style="display:none" role="dialog" aria-modal="true" aria-labelledby="dlTitle">
+  <div class="dl-card">
+    <h2 id="dlTitle">ダウンロード</h2>
+    <p id="dlMeta" class="dl-meta"></p>
+    <p class="dl-note" id="dlNote">PDFの作成に失敗したため、代わりの保存方法をご案内します。下の「この端末に保存する」を押すと印刷用ファイル（HTML）が保存されます。保存したファイルを開き、ブラウザの印刷機能からPDFとして保存できます。</p>
+    <div class="dl-actions">
+      <a id="dlSave" class="btn primary dl-main" href="#" download>この端末に保存する</a>
+      <button type="button" class="btn" id="dlPrintBtn">印刷用にこのページで開く</button>
+      <button type="button" class="btn" id="dlCopyBtn">テキストをコピーする</button>
+      <a id="dlOpen" class="btn" href="#" target="_blank" rel="noopener">ブラウザで開く</a>
+    </div>
+    <p id="dlMsg" class="dl-msg" role="status"></p>
+    <p class="dl-note" id="dlNote2">スマホで保存が始まらないときは、「印刷用にこのページで開く」を選び、ブラウザの共有／印刷メニューからPDFとして保存してください。テキストのコピーでも内容を持ち出せます。</p>
+    <button type="button" class="btn dl-close" id="dlCloseBtn">閉じる</button>
+  </div>
+</div>
+
+<script>
+var SETS = [
+  {
+    id:"noun-1", unit:"名詞節", step:"Step 1", type:"extra", typeLabel:"追加演習",
+    title:"名詞節 Step 1 — that節の基本",
+    date:"2026-11-24", dateLabel:"2026年11月24日",
+    desc:"まずは that節だけ。主語・目的語になる名詞節の感覚をつかむための基礎ドリルです。",
+    tags:["頻出"], mins:10,
+    questions:[
+      {q:"次の文の空所に入る最も適切なものを選びなさい。<br><span class='en'>I believe <span class='blank'>&nbsp;</span> he is honest.</span>", choices:["that","what","which","who"], answer:0, exp:"<b>答え：that</b> — believe の目的語として文全体（he is honest）が入ります。that は接続詞で、後ろに完全な文が続きます。what / which は後ろに不完全な文が来るので不可です。"},
+      {q:"<span class='en'>________ she passed the exam surprised everyone.</span><br>文頭の空所に入るものは？", choices:["That","What","It","Which"], answer:0, exp:"<b>答え：That</b> — That she passed the exam 全体が主語（名詞節）です。文頭で主語になる that節は頻出パターンです。"},
+      {q:"日本語に合うように選びなさい。「私は彼が来るかどうか分からない」<br><span class='en'>I don't know <span class='blank'>&nbsp;</span> he will come.</span>", choices:["whether","that","what","which"], answer:0, exp:"<b>答え：whether</b> — 「〜かどうか」は whether / if を使います。ここでは know の直後なので whether が最も自然です。that では意味が通りません。"},
+      {q:"<span class='en'>The fact <span class='blank'>&nbsp;</span> he lied made her angry.</span>", choices:["that","which","what","who"], answer:0, exp:"<b>答え：that</b> — the fact の内容を説明する同格の that節です。関係代名詞ではないので which は使えません。入試でよく狙われます。"},
+      {q:"空所に入るものは？<br><span class='en'>She thinks <span class='blank'>&nbsp;</span> is important is to keep trying.</span>", choices:["what","that","which","it"], answer:0, exp:"<b>答え：what</b> — 後ろが is important と不完全（主語が欠けている）なので、関係代名詞 what（〜すること／もの）を使います。that節は後ろが完全な文のときだけです。"}
+    ]
+  },
+  {
+    id:"noun-2", unit:"名詞節", step:"Step 2", type:"extra", typeLabel:"追加演習",
+    title:"名詞節 Step 2 — whether / if と疑問詞の名詞節",
+    date:"2026-11-24", dateLabel:"2026年11月24日",
+    desc:"Step 1の次は「かどうか」と疑問詞。語順（疑問詞＋主語＋動詞）に注意して解いてください。",
+    tags:["重点復習"], mins:12,
+    questions:[
+      {q:"正しい語順を選びなさい。<br><span class='en'>Do you know ________?</span>", choices:["where does he live","where he lives","where lives he","he lives where"], answer:1, exp:"<b>答え：where he lives</b> — 名詞節の中では疑問文の語順にはなりません。疑問詞＋主語＋動詞 が鉄則です。ここが一番間違えやすいポイントです。"},
+      {q:"<span class='en'>I wonder <span class='blank'>&nbsp;</span> it will rain tomorrow.</span>", choices:["if","that","what","which"], answer:0, exp:"<b>答え：if</b> — wonder の後は「〜かどうか」なので if / whether。that を入れると意味が変わってしまいます。"},
+      {q:"<span class='en'>Tell me <span class='blank'>&nbsp;</span> you want for your birthday.</span>", choices:["what","that","which","whether"], answer:0, exp:"<b>答え：what</b> — want の目的語が欠けている不完全な文なので what。that節は完全な文にしか付けられません。"},
+      {q:"前置詞の直後で使えるのはどちら？<br><span class='en'>It depends on ________ he agrees.</span>", choices:["whether","if"], answer:0, exp:"<b>答え：whether</b> — 前置詞の直後では if は使えず whether のみ可。これは頻出の使い分けです。"},
+      {q:"<span class='en'>________ is true is that effort matters.</span>", choices:["What","That","Which","It"], answer:0, exp:"<b>答え：What</b> — is true の主語が欠けた不完全文なので what節が主語になります。That節は完全な文が続くときに使います。"}
+    ]
+  },
+  {
+    id:"noun-3", unit:"名詞節", step:"Step 3", type:"extra", typeLabel:"追加演習",
+    title:"名詞節 Step 3 — 全用法ミックス［網羅演習］",
+    date:"2026-11-24", dateLabel:"2026年11月24日",
+    desc:"that / whether・if / what / 疑問詞を混ぜた仕上げ演習。Step 1・2を終えてから挑戦してください。",
+    tags:["頻出","重点復習"], mins:15,
+    questions:[
+      {q:"<span class='en'>I am not sure ________.</span>", choices:["what does this word mean","what this word means","that this word means what","what means this word"], answer:1, exp:"<b>答え：what this word means</b> — 名詞節内は平叙文の語順。あわせて「完全か不完全か」で what か that かを判断します。"},
+      {q:"<span class='en'>The question is ________ we should start now.</span>", choices:["whether","what","which","that what"], answer:0, exp:"<b>答え：whether</b> — 「始めるべきかどうか」が補語になっています。意味から whether を選びます。"},
+      {q:"誤っているものを選びなさい。", choices:["I know that he is busy.","I know what he wants.","I know if he is busy or not.","I know where does he work."], answer:3, exp:"<b>答え：④</b> — where he works が正解。名詞節の中で does を使う疑問文語順は誤りです。他はすべて正しい文です。"},
+      {q:"<span class='en'>________ he said was true.</span>", choices:["What","That","Which","Whether"], answer:0, exp:"<b>答え：What</b> — said の目的語が欠けているので what。「彼が言ったこと」という意味になります。"}
+    ]
+  },
+  {
+    id:"noun-review", unit:"名詞節", step:"まとめ", type:"review", typeLabel:"まとめ振り返り",
+    title:"名詞節 まとめ宿題（改訂版）",
+    date:"2026-11-24", dateLabel:"2026年11月24日",
+    desc:"名詞節の全内容を網羅したまとめ宿題の改訂版です。適語選択・並べ替え（一部）・並べ替え（全部）・部分英作文・和訳・誤文訂正の6形式 × 各7問 ＝ 42問（各1点・計42点）。that節、疑問詞の名詞節、whether / if、the fact that ～まで縦横に演習します。",
+    tags:["頻出","重点復習"], mins:40,
+    points:"名詞節は文の中で名詞の働き（主語・目的語・補語）をする節／that節「～ということ」。事実や内容を表す／the fact that ～「～という事実」／疑問詞の名詞節は疑問詞＋「主語＋動詞」の語順にする（疑問文の語順にはしない）／疑問詞が主語になるときは疑問詞のすぐ後に動詞が続く／whether・if「～かどうか」。主語・補語の位置では whether を使い、whether or not の形もある／名詞節が主語のとき述語動詞は単数扱いにする",
+    questions:[
+      {sec:"大問1　適語選択", secNote:"次の英文の空欄に入る最も適切なものを、①～④から1つ選びなさい。（各1点）", q:"<span class='en'>We believe <span class='blank'>&nbsp;</span> our teacher will help us.</span>", choices:["what","that","where","how"], answer:1, exp:"<b>答え：that</b> — that節が believe の目的語になっています。「私たちの先生が手伝ってくれる」という内容を表します。"},
+      {sec:"大問1　適語選択", q:"<span class='en'><span class='blank'>&nbsp;</span> the baby is holding is a small ball.</span>", choices:["What","That","Why","Whether"], answer:0, exp:"<b>答え：What</b> — what は holding の目的語で、「赤ちゃんが持っているもの」という意味の名詞節が主語になっています。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>I asked a police officer <span class='blank'>&nbsp;</span> the post office was.</span>", choices:["what","where","when","that"], answer:1, exp:"<b>答え：where</b> — 郵便局がある場所をたずねているので where。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>I don't know <span class='blank'>&nbsp;</span> the rain will stop.</span>", choices:["what","when","where","that"], answer:1, exp:"<b>答え：when</b> — 雨がやむ時刻を表すので when。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>I wonder <span class='blank'>&nbsp;</span> she can swim so fast.</span>", choices:["what","that","how","where"], answer:2, exp:"<b>答え：how</b> — 速く泳ぐ方法・様子を表すので how。"},
+      {sec:"大問1　適語選択", q:"<span class='en'><span class='blank'>&nbsp;</span> will teach us English next year is not decided yet.</span>", choices:["What","Who","Where","How"], answer:1, exp:"<b>答え：Who</b> — who が名詞節の中で主語になり、「来年私たちに英語を教える人」がまだ決まっていない、という意味になります。"},
+      {sec:"大問1　適語選択", q:"<span class='en'><span class='blank'>&nbsp;</span> it will snow this weekend or not is not certain.</span>", choices:["If","Whether","That","What"], answer:1, exp:"<b>答え：Whether</b> — or not と対になっているので「～かどうか」を表す whether。主語の位置では if は使えません。"},
+      {sec:"大問2　並べ替え（一部）", secNote:"次の日本語に合う英文になるように、（　）内の語句を並べ替えなさい。ただし、文頭に来る語も小文字で示してあります。（各1点）", q:"彼は彼女が忙しいと言った。<br><span class='en'>He said ( that / she / was / busy ).</span>", exp:"<b>答え：He said that she was busy.</b> — that節が said の目的語になっています。"},
+      {sec:"大問2　並べ替え（一部）", q:"私は、妹がどこでそのドレスを買ったのか知りたい。<br><span class='en'>I want to know ( where / my sister / bought / that dress ).</span>", exp:"<b>答え：I want to know where my sister bought that dress.</b> — 疑問詞の名詞節では、疑問詞の後ろは「主語＋動詞」の語順になります。"},
+      {sec:"大問2　並べ替え（一部）", q:"彼が昨夜作ったものはとてもおいしかった。<br><span class='en'>( what / he / made / last night ) was very delicious.</span>", exp:"<b>答え：What he made last night was very delicious.</b> — what は made の目的語で、what節全体が主語になっています。"},
+      {sec:"大問2　並べ替え（一部）", q:"彼が明日の試合に出るかどうかは、まだ決まっていない。<br><span class='en'>( whether / he / will / play / in the game tomorrow ) is not decided yet.</span>", exp:"<b>答え：Whether he will play in the game tomorrow is not decided yet.</b> — whether節が主語になるときは、文頭に Whether を置きます。"},
+      {sec:"大問2　並べ替え（一部）", q:"私は友達に、どうやってギターを弾けるようになったのか聞いた。<br><span class='en'>I asked my friend ( how / he / learned / to play / the guitar ).</span>", exp:"<b>答え：I asked my friend how he learned to play the guitar.</b> — 疑問詞の名詞節では「主語＋動詞」の語順になります。"},
+      {sec:"大問2　並べ替え（一部）", q:"彼が無事に帰ってきたということは、彼の家族を喜ばせた。<br><span class='en'>( that / he / came back / safely ) made his family happy.</span><br><span class='fill-note'>※safely：無事に</span>", exp:"<b>答え：That he came back safely made his family happy.</b> — that節が主語になるときは、文頭に That を置きます。"},
+      {sec:"大問2　並べ替え（一部）", q:"誰がその窓を割ったのか、誰にも分からない。<br><span class='en'>Nobody knows ( who / broke / the window ).</span>", exp:"<b>答え：Nobody knows who broke the window.</b> — who が主語のときは、who のすぐ後に動詞が続きます。"},
+      {sec:"大問3　並べ替え（全部）", secNote:"次の日本語に合う英文になるように、（　）内の語句をすべて使って並べ替えなさい。ただし、文頭に来る語も小文字で示してあります。（各1点）", q:"私は彼がその仕事を終えると思う。<br><span class='en'>( i / think / that / he / will / finish / the work )</span>", exp:"<b>答え：I think that he will finish the work.</b> — that節が think の目的語になっています。"},
+      {sec:"大問3　並べ替え（全部）", q:"彼女がいつ帰ってくるか知っていますか。<br><span class='en'>( do / you / know / when / she / will / come / back )</span>", exp:"<b>答え：Do you know when she will come back?</b> — 名詞節の中は疑問文の語順にしません（when she will come back）。"},
+      {sec:"大問3　並べ替え（全部）", q:"彼が試験に落ちたという事実は、彼をとても悲しませた。<br><span class='en'>( the fact / that / he / failed / the test / made / him / very sad )</span><br><span class='fill-note'>※fail：（試験に）落ちる</span>", exp:"<b>答え：The fact that he failed the test made him very sad.</b> — the fact that ～ で「～という事実」。節全体が主語なので単数扱いです。"},
+      {sec:"大問3　並べ替え（全部）", q:"私が今ほしいものは、温かいスープだ。<br><span class='en'>( what / i / want / now / is / hot soup )</span><br><span class='fill-note'>※soup：スープ</span>", exp:"<b>答え：What I want now is hot soup.</b> — what は want の目的語で、what節が主語になっています。"},
+      {sec:"大問3　並べ替え（全部）", q:"彼女が私たちのパーティーに来るかどうか分からない。<br><span class='en'>( i / don't / know / whether / she / will / come / to / our / party )</span>", exp:"<b>答え：I don't know whether she will come to our party.</b> — 「来るかどうか」なので whether を使います。"},
+      {sec:"大問3　並べ替え（全部）", q:"なぜ彼がその仕事を辞めたのか、私には分からない。<br><span class='en'>( i / don't / understand / why / he / left / his job )</span><br><span class='fill-note'>※leave：～を辞める</span>", exp:"<b>答え：I don't understand why he left his job.</b> — 名詞節の中は「主語＋動詞」の語順です。"},
+      {sec:"大問3　並べ替え（全部）", q:"彼がチームで一番速い選手だということは明らかだ。<br><span class='en'>( it / is / clear / that / he / is / the fastest player / on the team )</span>", exp:"<b>答え：It is clear that he is the fastest player on the team.</b> — It is clear that ～ で「～ということは明らかだ」。"},
+      {sec:"大問4　部分英作文", secNote:"次の英文の［　］の部分だけを英語に直しなさい。（各1点）", q:"<span class='en'>I know [ 彼女は昨日その本を読んだ ].</span>", exp:"<b>答え：that she read the book yesterday</b>（完成文：I know that she read the book yesterday.）"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>Tell me [ あなたに何が起こったのか ].</span>", exp:"<b>答え：what happened to you</b>（完成文：Tell me what happened to you.）"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>Nobody told me [ 会議室がどこにあるか ].</span>", exp:"<b>答え：where the meeting room is</b>（完成文：Nobody told me where the meeting room is.）— 名詞節の中は「主語＋動詞」の語順にします。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>I can't decide [ その車を買うべきかどうか ].</span>", exp:"<b>答え：whether I should buy the car</b>（完成文：I can't decide whether I should buy the car.）— 「～すべきかどうか」は whether ＋主語＋should ～ で表します。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>I don't know [ 誰が私の傘を持っていったのか ].</span>", exp:"<b>答え：who took my umbrella</b>（完成文：I don't know who took my umbrella.）— who が主語なので、who のすぐ後に動詞 took が続きます。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>[ この店が日曜日に開いていること ] is convenient.</span><br><span class='fill-note'>※convenient：便利な</span>", exp:"<b>答え：That this shop is open on Sundays</b>（完成文：That this shop is open on Sundays is convenient.）— that節全体を主語にして文を始めます。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>I want to know [ 彼女がどうやってそんなに速く走れるのか ].</span>", exp:"<b>答え：how she can run so fast</b>（完成文：I want to know how she can run so fast.）"},
+      {sec:"大問5　和訳", secNote:"次の英文を日本語に訳しなさい。（各1点）", q:"<span class='en'>My hope is that everyone will be happy.</span>", exp:"<b>答え：私の希望は、みんなが幸せになることです。</b> — that節が is の補語になっています（My hope is that ～）。"},
+      {sec:"大問5　和訳", q:"<span class='en'>What she wrote in her diary was a secret.</span><br><span class='fill-note'>※diary：日記</span>", exp:"<b>答え：彼女が日記に書いたことは、秘密だった。</b> — what she wrote は「彼女が書いたこと」。what 自体が wrote の目的語になっています。"},
+      {sec:"大問5　和訳", q:"<span class='en'>I don't know where my dog has gone.</span>", exp:"<b>答え：私は犬がどこへ行ってしまったのか分からない。</b>"},
+      {sec:"大問5　和訳", q:"<span class='en'>Whether he comes or not doesn't matter.</span><br><span class='fill-note'>※matter：重要である</span>", exp:"<b>答え：彼が来るかどうかは問題ではない。</b> — 名詞節が主語の文は「～は問題ではない」と訳すと自然です。"},
+      {sec:"大問5　和訳", q:"<span class='en'>The fact that it snowed in April surprised everyone.</span>", exp:"<b>答え：4月に雪が降ったという事実は、みんなを驚かせた。</b> — the fact that ～ は「～という事実」。"},
+      {sec:"大問5　和訳", q:"<span class='en'>Tell me why you chose this book.</span>", exp:"<b>答え：なぜあなたがこの本を選んだのか教えてください。</b>"},
+      {sec:"大問5　和訳", q:"<span class='en'>It is sad that the old tree was cut down.</span><br><span class='fill-note'>※cut down：切り倒す</span>", exp:"<b>答え：その古い木が切り倒されたことは悲しいことだ。</b>"},
+      {sec:"大問6　誤文訂正", secNote:"次の英文には文法上の誤りが1か所ある。誤りを訂正し、正しい英文を書きなさい。（各1点）", q:"<span class='en'>I don't know what does he want.</span>", exp:"<b>答え：I don't know what he wants.</b> — 名詞節の中は疑問文の語順にしません。"},
+      {sec:"大問6　誤文訂正", q:"<span class='en'>I wonder if is he a new student.</span>", exp:"<b>答え：I wonder if he is a new student.</b> — 名詞節の中は疑問文の語順にしません。"},
+      {sec:"大問6　誤文訂正", q:"<span class='en'>What he says are always true.</span>", exp:"<b>答え：What he says is always true.</b> — what節全体が主語のときは単数扱いにし、動詞は is になります。"},
+      {sec:"大問6　誤文訂正", q:"<span class='en'>If he will join us is not decided.</span>", exp:"<b>答え：Whether he will join us is not decided.</b> — 主語の位置に来る「～かどうか」は if ではなく whether を使います。"},
+      {sec:"大問6　誤文訂正", q:"<span class='en'>Tell me who did break this cup.</span>", exp:"<b>答え：Tell me who broke this cup.</b> — who が主語のときは who のすぐ後に動詞を置きます。did は不要です。"},
+      {sec:"大問6　誤文訂正", q:"<span class='en'>Please tell me why did she leave so early.</span>", exp:"<b>答え：Please tell me why she left so early.</b> — 名詞節の中は疑問文の語順にしません。"},
+      {sec:"大問6　誤文訂正", q:"<span class='en'>I asked him that he was busy.</span>", exp:"<b>答え：I asked him whether he was busy.</b>（if でも可）— 「～かどうか尋ねる」ときは that ではなく whether / if を使います。"}
+    ]
+  },
+  {
+    id:"adv-revised", unit:"副詞節", step:"改訂版", type:"extra", typeLabel:"追加演習",
+    title:"副詞節 改訂版 — Lesson 57〜59 全範囲",
+    date:"2026-11-24", dateLabel:"2026年11月24日",
+    desc:"Lesson 57〜59（時・条件／譲歩・理由／目的・結果）の全範囲を扱う改訂版です。適語選択・並べ替え（一部）・並べ替え（全部）・部分英作文・誤文訂正・和訳の6形式 × 各7問 ＝ 42問（各1点・計42点）。",
+    tags:["頻出"], mins:35,
+    points:"時を表す接続詞：when／before／after／while／until／as soon as／once／by the time／since／条件を表す接続詞：if／unless／in case／時・条件を表す副詞節の中では、未来のことでも will を使わず現在形で表す／譲歩：though・although・even though、even if、whether … or ～。even if・whether の節の中でも未来は現在形／理由：because（主節の後ろに置く。because だけの文にしない）／since／now that／目的：so that ～（後ろには can・will などの助動詞）／結果・程度：so ～ that（so の後ろは形容詞・副詞）、such ～ that（such の後ろは a＋形容詞＋名詞）",
+    questions:[
+      {sec:"大問1　適語選択", secNote:"次の英文の空欄に入る最も適切なものを、①～④の中から1つ選びなさい。（各1点）", q:"<span class='en'>I was cooking dinner <span class='blank'>&nbsp;</span> my friend called me.</span>", choices:["when","unless","so that","whether"], answer:0, exp:"<b>答え：when</b> — 「夕食を作っているときに友達が電話してきた」という同時の出来事なので when。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>If it <span class='blank'>&nbsp;</span> tomorrow, we won't go to the beach.</span>", choices:["rains","will rain","rained","rain"], answer:0, exp:"<b>答え：rains</b> — if節の中では、未来のことでも現在形を使います。主語 it なので rains。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>You can't borrow books from the library <span class='blank'>&nbsp;</span> you have a card.</span>", choices:["if","unless","because","so that"], answer:1, exp:"<b>答え：unless</b> — 「カードを持っていない限り借りられない」。if you have a card では意味が逆になります。"},
+      {sec:"大問1　適語選択", q:"<span class='en'><span class='blank'>&nbsp;</span> it is expensive, I will buy it.</span>", choices:["Because","Since","Even if","So that"], answer:2, exp:"<b>答え：Even if</b> — 「たとえ高くても買う」という譲歩。Because / Since の理由では意味が通りません。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>She stayed home <span class='blank'>&nbsp;</span> she caught a cold.</span><br><span class='fill-note'>※catch a cold：風邪をひく</span>", choices:["though","because","unless","whether"], answer:1, exp:"<b>答え：because</b> — 家にいた理由を表します。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>He speaks slowly <span class='blank'>&nbsp;</span> everyone can understand him.</span>", choices:["though","in case","so that","unless"], answer:2, exp:"<b>答え：so that</b> — 「みんなに分かってもらえるように」という目的。後ろに can が続くのが目印です。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>It was <span class='blank'>&nbsp;</span> a hot day that we drank a lot of water.</span>", choices:["so","such","very","too"], answer:1, exp:"<b>答え：such</b> — such の後ろは a＋形容詞＋名詞（such a hot day that ～）。so の後ろには名詞は続きません。"},
+      {sec:"大問2　並べ替え（一部）", secNote:"次の日本語に合う英文になるように、（　）内の語句を正しい順に並べ替えなさい。ただし、文頭に来る語も小文字で示してあります。（各1点）", q:"私は家に着いたら、あなたに電話します。<br><span class='en'>I will call you ( when / I / get / home ).</span>", exp:"<b>答え：I will call you when I get home.</b> — when節の中では、未来のことでも現在形を使います（get）。"},
+      {sec:"大問2　並べ替え（一部）", q:"寝る前に歯を磨きなさい。<br><span class='en'>Brush your teeth ( before / you / go / to bed ).</span>", exp:"<b>答え：Brush your teeth before you go to bed.</b>"},
+      {sec:"大問2　並べ替え（一部）", q:"宿題が終わったらすぐに、外に遊びに行けます。<br><span class='en'>You can go out ( as soon as / you / finish / your homework ).</span>", exp:"<b>答え：You can go out as soon as you finish your homework.</b> — as soon as は「…するとすぐに」。"},
+      {sec:"大問2　並べ替え（一部）", q:"雨がやむまで、私たちは駅で待ちました。<br><span class='en'>We waited at the station ( until / the rain / stopped ).</span>", exp:"<b>答え：We waited at the station until the rain stopped.</b> — 過去の話なので、主節に合わせて until節も過去形 stopped。"},
+      {sec:"大問2　並べ替え（一部）", q:"もし明日晴れれば、私たちは川へ釣りに行きます。<br><span class='en'>( if / it / is / sunny / tomorrow ), we will go fishing in the river.</span><br><span class='fill-note'>※go fishing：釣りに行く</span>", exp:"<b>答え：If it is sunny tomorrow, we will go fishing in the river.</b> — if節の中では、未来のことでも現在形を使います（is）。"},
+      {sec:"大問2　並べ替え（一部）", q:"私は子どものころからこの町に住んでいます。<br><span class='en'>I have lived in this town ( since / I / was / a child ).</span>", exp:"<b>答え：I have lived in this town since I was a child.</b> — since は「…して以来」で、I was a child の時点から今まで続いていることを表します。"},
+      {sec:"大問2　並べ替え（一部）", q:"寒くなるといけないから、上着を持っていきなさい。<br><span class='en'>Take a jacket ( in case / it / gets / cold ).</span><br><span class='fill-note'>※jacket：上着</span>", exp:"<b>答え：Take a jacket in case it gets cold.</b> — in case は「…するといけないから（…に備えて）」。"},
+      {sec:"大問3　並べ替え（全部）", secNote:"次の日本語に合う英文になるように、（　）内の語句をすべて使って、正しい順に並べ替えなさい。ただし、文頭に来る語も小文字で示してあります。（各1点）", q:"私がピアノを練習している間、弟は本を読んでいました。<br><span class='en'>( while / I / was / practicing / the piano / my brother / was / reading / a book )</span>", exp:"<b>答え：While I was practicing the piano, my brother was reading a book.</b> — while は「…している間に」。両方とも過去進行形で、同時に続いていたことを表します。"},
+      {sec:"大問3　並べ替え（全部）", q:"彼は夕食の後で、犬と散歩をしました。<br><span class='en'>( he / took / a walk / with / his dog / after / dinner )</span>", exp:"<b>答え：He took a walk with his dog after dinner.</b>"},
+      {sec:"大問3　並べ替え（全部）", q:"いったんこの歌を覚えれば、決して忘れることはありません。<br><span class='en'>( once / you / learn / this song / you / will / never / forget / it )</span>", exp:"<b>答え：Once you learn this song, you will never forget it.</b> — once は「いったん…すると」。"},
+      {sec:"大問3　並べ替え（全部）", q:"私たちが映画館に着くころには、映画はすでに始まっていました。<br><span class='en'>( by the time / we / got / to / the theater / the movie / had / already / started )</span><br><span class='fill-note'>※theater：映画館</span>", exp:"<b>答え：By the time we got to the theater, the movie had already started.</b> — by the time は「…するころまでには」。映画は「すでに始まっていた」ので過去完了 had started。"},
+      {sec:"大問3　並べ替え（全部）", q:"彼は熱があったけれども、学校に行きました。<br><span class='en'>( although / he / had / a fever / he / went / to / school )</span><br><span class='fill-note'>※fever：熱</span>", exp:"<b>答え：Although he had a fever, he went to school.</b> — although は though と同じ「…だが」。"},
+      {sec:"大問3　並べ替え（全部）", q:"大雪だったので、私たちは外で遊べませんでした。<br><span class='en'>( since / it / snowed / a lot / we / could / not / play / outside )</span>", exp:"<b>答え：Since it snowed a lot, we could not play outside.</b> — since は文脈から「理由」を表します（「大雪だったので」）。"},
+      {sec:"大問3　並べ替え（全部）", q:"その本はとてもおもしろかったので、私は1日で読み終えました。<br><span class='en'>( the book / was / so / interesting / that / I / read / it / in a day )</span>", exp:"<b>答え：The book was so interesting that I read it in a day.</b> — so＋形容詞（interesting）＋that … で「とても～なので…」。"},
+      {sec:"大問4　部分英作文", secNote:"次の英文の（　　）に入る部分を、［　］の日本語に合うように英語で書きなさい。（　　）の外は書き換えなくてよい。（各1点）", q:"<span class='en'>We were in the park when (　　).</span><br>［雨が降り始めた（start を使うこと）］", exp:"<b>答え：it started to rain</b>（完成文：We were in the park when it started to rain.）"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>The plan will be canceled if (　　).</span><br>［明日雨が降れば］", exp:"<b>答え：it rains tomorrow</b>（完成文：The plan will be canceled if it rains tomorrow.）— if節の中では、未来のことでも現在形を使います。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>He was late because (　　).</span><br>［バスに乗り遅れた］<br><span class='fill-note'>※miss：～に乗り遅れる</span>", exp:"<b>答え：he missed the bus</b>（完成文：He was late because he missed the bus.）— because の節は理由を表します。missed は miss の過去形。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>She ran to the end though (　　).</span><br>［彼女は疲れていた］", exp:"<b>答え：she was tired</b>（完成文：She ran to the end though she was tired.）"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>She went to bed early so that (　　).</span><br>［彼女がよく眠れる］", exp:"<b>答え：she could sleep well</b>（完成文：She went to bed early so that she could sleep well.）— so that の後ろには助動詞を置きます。主節が過去形（went）なので could にそろえます。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>We waited quietly until (　　).</span><br>［ドアが開く］", exp:"<b>答え：the door opened</b>（完成文：We waited quietly until the door opened.）— 過去の話なので、until節も過去形 opened。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>Leave the classroom as soon as (　　).</span><br>［ベルが鳴る］<br><span class='fill-note'>※bell：ベル</span>", exp:"<b>答え：the bell rings</b>（完成文：Leave the classroom as soon as the bell rings.）— as soon as節の中では、未来のことでも現在形を使います。"},
+      {sec:"大問5　誤文訂正", secNote:"次の英文には文法上の誤りが一か所あります。誤りを訂正し、正しい英文にしなさい。（各1点）", q:"<span class='en'>I will help you when I will finish my work.</span>", exp:"<b>答え：I will help you when I finish my work.</b> — when節の中では未来でも現在形にします（will finish は誤り）。"},
+      {sec:"大問5　誤文訂正", q:"<span class='en'>If you will come to my house tomorrow, let's play games.</span>", exp:"<b>答え：If you come to my house tomorrow, let's play games.</b> — if節の中では未来でも現在形にします（will come は誤り）。"},
+      {sec:"大問5　誤文訂正", q:"<span class='en'>Don't go out unless you don't finish your homework.</span>", exp:"<b>答え：Don't go out unless you finish your homework.</b> — unless はすでに否定の意味を含むので、don't を入れてはいけません。"},
+      {sec:"大問5　誤文訂正", q:"<span class='en'>She stayed home. Because she caught a cold.</span>", exp:"<b>答え：She stayed home because she caught a cold.</b> — because の節だけを切り離して文にすることはできません。主節と1つの文につなげます。"},
+      {sec:"大問5　誤文訂正", q:"<span class='en'>He is such tall that he can reach the top shelf.</span><br><span class='fill-note'>※shelf：棚</span>", exp:"<b>答え：He is so tall that he can reach the top shelf.</b> — tall は形容詞なので、such ではなく so（so tall that ～）。"},
+      {sec:"大問5　誤文訂正", q:"<span class='en'>Even if it will rain tomorrow, we will go on a trip.</span>", exp:"<b>答え：Even if it rains tomorrow, we will go on a trip.</b> — even if の節の中でも、未来のことでも現在形にします。"},
+      {sec:"大問5　誤文訂正", q:"<span class='en'>She saved money so that she can buys a bike.</span>", exp:"<b>答え：She saved money so that she can buy a bike.</b> — can の後ろは動詞の原形 buy。"},
+      {sec:"大問6　和訳", secNote:"次の英文を日本語に直しなさい。（各1点）", q:"<span class='en'>While I was taking a bath, the phone rang.</span><br><span class='fill-note'>※bath：お風呂</span>", exp:"<b>答え：私がお風呂に入っている間に、電話が鳴った。</b> — while は「…している間に」。was taking の過去進行形に注意。"},
+      {sec:"大問6　和訳", q:"<span class='en'>Wash your hands before you eat lunch.</span>", exp:"<b>答え：昼食を食べる前に、手を洗いなさい。</b>"},
+      {sec:"大問6　和訳", q:"<span class='en'>After she practiced the piano, she did her homework.</span>", exp:"<b>答え：彼女はピアノを練習した後で、宿題をした。</b>"},
+      {sec:"大問6　和訳", q:"<span class='en'>Whether you agree or not, we have to decide today.</span><br><span class='fill-note'>※agree：賛成する</span>", exp:"<b>答え：あなたが賛成であろうとなかろうと、私たちは今日決めなければならない。</b> — whether … or not は「…であろうとなかろうと」。"},
+      {sec:"大問6　和訳", q:"<span class='en'>Now that the exams are over, let's take a trip.</span>", exp:"<b>答え：今は試験が終わったので、旅行に行こう。</b> — now that は「今は…ので」。"},
+      {sec:"大問6　和訳", q:"<span class='en'>She wrote down his address so that she would not forget it.</span><br><span class='fill-note'>※write down：書き留める　address：住所</span>", exp:"<b>答え：彼女は忘れないように、彼の住所を書き留めた。</b> — so that はここでは「目的（…するように）」。"},
+      {sec:"大問6　和訳", q:"<span class='en'>The soup was so hot that I couldn't eat it at once.</span><br><span class='fill-note'>※soup：スープ　at once：すぐに</span>", exp:"<b>答え：そのスープはとても熱かったので、私はすぐに食べることができなかった。</b> — so ～ that … は「とても～なので…」と訳すと自然です。"}
+    ]
+  },
+  {
+    id:"rel-1", unit:"関係代名詞", step:"Step 1", type:"extra", typeLabel:"追加演習",
+    title:"関係代名詞 Step 1 — who / which / that の使い分け",
+    date:"2026-11-18", dateLabel:"2026年11月18日",
+    desc:"先行詞が人か物か、主格か目的格かをまず見分ける練習です。",
+    tags:["頻出"], mins:10,
+    questions:[
+      {q:"<span class='en'>The man <span class='blank'>&nbsp;</span> lives next door is a teacher.</span>", choices:["who","which","what","whom"], answer:0, exp:"<b>答え：who</b> — 先行詞は人（the man）で、関係詞が主語の働きをする主格なので who。"},
+      {q:"<span class='en'>This is the book <span class='blank'>&nbsp;</span> I bought yesterday.</span>", choices:["which","who","whose","what"], answer:0, exp:"<b>答え：which</b> — 先行詞は物、目的格。that でも可。what は先行詞を取らないので不可です。"},
+      {q:"省略できる関係代名詞はどれ？<br><span class='en'>The song ( ) she sang was beautiful.</span>", choices:["which — 省略可","who（主格）— 省略可","whose — 省略可","主格は常に省略可"], answer:0, exp:"<b>答え：which（目的格）は省略可</b> — 目的格の関係代名詞は省略できます。主格と whose は省略できません。"},
+      {q:"<span class='en'>He is the only student <span class='blank'>&nbsp;</span> passed the test.</span>", choices:["that","which","what","whom"], answer:0, exp:"<b>答え：that</b> — the only が先行詞につくときは that が好まれます。入試の定番ポイントです。"}
+    ]
+  },
+  {
+    id:"rel-2", unit:"関係代名詞", step:"Step 2", type:"extra", typeLabel:"追加演習",
+    title:"関係代名詞 Step 2 — whose と 前置詞＋関係代名詞",
+    date:"2026-11-20", dateLabel:"2026年11月20日",
+    desc:"一段レベルを上げた用法。書き換え問題でもよく出ます。",
+    tags:[], mins:12,
+    questions:[
+      {q:"<span class='en'>I know a girl <span class='blank'>&nbsp;</span> father is a doctor.</span>", choices:["whose","who","which","that"], answer:0, exp:"<b>答え：whose</b> — 「その女の子の父」という所有の関係なので whose。後ろに名詞（father）が続きます。"},
+      {q:"<span class='en'>This is the house <span class='blank'>&nbsp;</span> which I lived as a child.</span>", choices:["in","at","on","to"], answer:0, exp:"<b>答え：in</b> — live in the house なので in which。前置詞＋関係代名詞では that は使えません。"},
+      {q:"書き換えとして正しいものは？<br><span class='en'>The pen with which he wrote is old.</span>", choices:["The pen which he wrote with is old.","The pen who he wrote is old.","The pen what he wrote with is old.","The pen whose he wrote is old."], answer:0, exp:"<b>答え：①</b> — 前置詞を後ろに戻した形。which he wrote with が自然な口語形です。"}
+    ]
+  },
+  {
+    id:"review-1", unit:"まとめ振り返り", step:"Vol. 1", type:"review", typeLabel:"まとめ振り返り",
+    title:"まとめ振り返り Vol.1 — 関係代名詞 ＋ 名詞節",
+    date:"2026-11-24", dateLabel:"2026年11月24日",
+    desc:"関係代名詞と名詞節の2単元を対象にしたまとめです。弱点だった「名詞節の語順」と「that / what の見分け」を多めに出題しています。",
+    tags:["頻出","重点復習"], mins:18,
+    questions:[
+      {q:"<span class='en'>Do you remember ________?</span>", choices:["when is the meeting","when the meeting is","that when is the meeting","when does the meeting"], answer:1, exp:"<b>答え：when the meeting is</b> — 名詞節は平叙文語順。まとめでも最も落としやすい問題です。"},
+      {q:"<span class='en'>The woman <span class='blank'>&nbsp;</span> I met yesterday is my aunt.</span>", choices:["who","which","whose","what"], answer:0, exp:"<b>答え：who</b> — 人＋目的格なので who（whom / that でも可）。"},
+      {q:"<span class='en'>________ matters is not money but time.</span>", choices:["What","That","Which","It"], answer:0, exp:"<b>答え：What</b> — matters の主語が欠けている不完全文 → what節。"},
+      {q:"<span class='en'>I believe <span class='blank'>&nbsp;</span> she said was true.</span>", choices:["what","that","which","whether"], answer:0, exp:"<b>答え：what</b> — said の目的語が欠けているので what。believe の目的語として名詞節全体が入ります。2つの判断が重なる応用問題です。"},
+      {q:"正しい文を選びなさい。", choices:["I don't know whether will he come.","I don't know whether he will come.","I don't know that whether he will come.","I don't know what will he come."], answer:1, exp:"<b>答え：②</b> — whether節も平叙文語順。that と whether の重ね使いも誤りです。"}
+    ]
+  },
+  {
+    id:"hypo-1", unit:"仮定法", step:"Step 1", type:"extra", typeLabel:"追加演習",
+    title:"仮定法 Step 1 — 仮定法過去の形",
+    date:"2026-11-15", dateLabel:"2026年11月15日",
+    desc:"If I were / If I had の形と、主節の would / could / might をセットで覚えるドリルです。",
+    tags:[], mins:10,
+    questions:[
+      {q:"<span class='en'>If I <span class='blank'>&nbsp;</span> a bird, I would fly to you.</span>", choices:["were","am","was","will be"], answer:0, exp:"<b>答え：were</b> — 仮定法過去では be動詞は主語にかかわらず were が原則です。現在の事実に反する仮定です。"},
+      {q:"<span class='en'>If I had money, I <span class='blank'>&nbsp;</span> buy a new bike.</span>", choices:["would","will","shall","am"], answer:0, exp:"<b>答え：would</b> — 仮定法過去の主節は would / could / might + 動詞の原形。"},
+      {q:"現在の事実として正しい言い換えは？<br><span class='en'>If I knew her address, I would visit her.</span>", choices:["I don't know her address.","I know her address.","I knew her address yesterday.","I will know her address."], answer:0, exp:"<b>答え：①</b> — 仮定法過去は「今、実際はそうではない」という意味を含みます。"}
+    ]
+  }
+];
+
+var state = { filter:"all", unit:"all", query:"", sort:"new", currentId:null, showAnswers:false };
+
+function $(id){return document.getElementById(id)}
+function filtered(){
+  var list = SETS.slice();
+  if(state.sort==="new") list.sort(function(a,b){return b.date.localeCompare(a.date)});
+  if(state.sort==="old") list.sort(function(a,b){return a.date.localeCompare(b.date)});
+  if(state.sort==="unit") list.sort(function(a,b){return a.unit.localeCompare(b.unit,'ja') || b.date.localeCompare(a.date)});
+  return list.filter(function(s){
+    if(state.filter==="extra" && s.type!=="extra") return false;
+    if(state.filter==="review" && s.type!=="review") return false;
+    if(state.filter==="hot" && s.tags.indexOf("頻出")===-1) return false;
+    if(state.filter==="focus" && s.tags.indexOf("重点復習")===-1) return false;
+    if(state.unit!=="all" && s.unit!==state.unit) return false;
+    if(state.query){
+      var q = state.query.trim().toLowerCase();
+      var hay = (s.unit+" "+s.title+" "+s.desc+" "+s.dateLabel+" "+s.date+" "+s.tags.join(" ")).toLowerCase();
+      if(hay.indexOf(q)===-1) return false;
+    }
+    return true;
+  });
+}
+function renderUnitChips(){
+  var units = [];
+  SETS.forEach(function(s){ if(s.unit==="まとめ振り返り") return; if(units.indexOf(s.unit)===-1) units.push(s.unit); });
+  var html = '<button class="chip '+(state.unit==="all"?"active":"")+'" data-unit="all">全ての単元</button>';
+  units.forEach(function(u){ html += '<button class="chip '+(state.unit===u?"active":"")+'" data-unit="'+u+'">'+u+'</button>'; });
+  $("unitChips").innerHTML = html;
+  var btns = $("unitChips").querySelectorAll("[data-unit]");
+  for(var i=0;i<btns.length;i++){ btns[i].addEventListener("click", function(){ state.unit=this.getAttribute("data-unit"); render(); }); }
+}
+function groupByUnit(list){
+  var map={}, order=[];
+  list.forEach(function(s){ if(!map[s.unit]){map[s.unit]=[]; order.push(s.unit);} map[s.unit].push(s); });
+  return order.map(function(u){return {unit:u, items:map[u]};});
+}
+function stepsForUnit(unit){
+  // predefined step order display
+  var all = SETS.filter(function(s){return s.unit===unit});
+  return all;
+}
+function render(){
+  renderUnitChips();
+  var list = filtered();
+  $("countSets").textContent = SETS.length;
+  var totalQ = SETS.reduce(function(a,s){return a+s.questions.length},0);
+  $("countQs").textContent = totalQ;
+  $("resultText").textContent = list.length + " 件のセットが見つかりました";
+  $("empty").style.display = list.length? "none":"block";
+  var groups = groupByUnit(list);
+  var html="";
+  groups.forEach(function(g){
+    html += '<div class="unit-head"><h2>'+g.unit+'</h2><span>'+g.items.length+' セット</span></div>';
+    // steps pills
+    var stepItems = stepsForUnit(g.unit);
+    if(stepItems.length>1){
+      html += '<div class="steps">'+ stepItems.map(function(s){return '<span class="step-dot done">'+s.step+' ✓</span>'}).join("") +'</div>';
+    }
+    html += '<div class="grid">';
+    g.items.forEach(function(s){
+      var badgeClass = s.type==="review" ? "badge-review" : "badge-extra";
+      html += '<article class="card">'
+        + '<div class="card-top"><span class="badge '+badgeClass+'">'+s.typeLabel+' ・ '+s.step+'</span><span class="date">'+s.dateLabel+'</span></div>'
+        + '<h3>'+s.title+'</h3>'
+        + '<p>'+s.desc+'</p>'
+        + '<div class="tags">'
+        + s.tags.map(function(t){ var c = t==="頻出"?"hot":(t==="重点復習"?"focus":""); return '<span class="tag '+c+'">'+t+'</span>'}).join("")
+        + '<span class="tag">'+s.questions.length+'問 ・ 約'+s.mins+'分</span></div>'
+        + '<div class="card-foot"><button class="btn primary" onclick="openDetail(\''+s.id+'\',false)">問題を見る</button>'
+        + '<button class="btn" onclick="openDetail(\''+s.id+'\',true)">解答・解説</button>'
+        + '<button class="btn" onclick="downloadSet(\''+s.id+'\',false)">⬇ PDFダウンロード</button></div>'
+        + '</article>';
+    });
+    html += '</div>';
+  });
+  $("list").innerHTML = html;
+}
+function openDetail(id, showAns, printMode){
+  state.currentId=id; state.showAnswers=!!showAns;
+  var s = SETS.find(function(x){return x.id===id});
+  if(!s) return;
+  var d = $("detail");
+  var html = '';
+  html += '<div class="detail-head"><span class="badge '+(s.type==="review"?"badge-review":"badge-extra")+'">'+s.typeLabel+' ・ '+s.unit+' ・ '+s.step+'</span>'
+    + '<h2>'+s.title+'</h2><p>'+s.dateLabel+' 追加 ・ 全'+s.questions.length+'問 ・ 目安 '+s.mins+'分<br>'+s.desc+'</p></div>';
+  html += '<div class="detail-toolbar"><div class="toggle" role="group" aria-label="表示切替"><button id="tbQ" class="'+(!state.showAnswers?'active':'')+'" onclick="setAns(false)">問題のみ</button><button id="tbA" class="'+(state.showAnswers?'active':'')+'" onclick="setAns(true)">解答・解説を表示</button></div><span class="spacer"></span><button class="btn" onclick="closeDetail()">閉じる</button><button class="btn" onclick="downloadSet(\''+s.id+'\',false)">問題をPDFでダウンロード</button><button class="btn primary" onclick="downloadSet(\''+s.id+'\',true)">解答つきをPDFでダウンロード</button></div>';
+  html += '<p class="print-hint">「PDFでダウンロード」を押すと、その場でPDFファイルがダウンロードされます。作成には少し時間がかかることがあります。ダウンロードしたPDFはそのまま印刷して使えます。</p>';
+  if(s.points){ html += '<div class="points"><strong>ポイント復習</strong><ul>' + s.points.split("／").map(function(p){return '<li>'+p+'</li>'}).join("") + '</ul></div>'; }
+  html += '<div class="qs" id="qs">';
+  var curSec = null, secCount = 0;
+  s.questions.forEach(function(q, idx){
+    if(q.sec && q.sec !== curSec){
+      curSec = q.sec; secCount = 0;
+      html += '<div class="sec-head">'+q.sec+'</div>';
+      if(q.secNote) html += '<p class="sec-note">'+q.secNote+'</p>';
+    }
+    secCount++;
+    var label = q.sec ? '('+secCount+')' : 'Question '+(idx+1);
+    html += '<div class="q" data-q="'+idx+'"><div class="q-num">'+label+'</div><div class="q-text">'+q.q+'</div>';
+    if(q.choices){
+      html += '<div class="choices">';
+      q.choices.forEach(function(c, ci){
+        var letter = String.fromCharCode(65+ci);
+        html += '<button class="choice" onclick="checkChoice(this,'+idx+','+ci+')"><span class="lab">'+letter+'</span><span>'+c+'</span></button>';
+      });
+      html += '</div>';
+    }
+    html += '<div class="answer-box '+(state.showAnswers?'show':'')+'" id="ans-'+idx+'">'+q.exp+(q.choices?'<div class="fill-note" style="margin-top:6px">選んだ選択肢が合っているか上のボタンでも確認できます。</div>':'')+'</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+  d.innerHTML = html;
+  d.classList.add("open");
+  d.scrollIntoView({behavior:"smooth", block:"start"});
+  if(printMode){ setTimeout(function(){ /* keep hint visible */ }, 100); }
+}
+function setAns(v){
+  state.showAnswers=v;
+  var s = SETS.find(function(x){return x.id===state.currentId});
+  if(!s) return;
+  document.querySelectorAll(".answer-box").forEach(function(el){ el.classList.toggle("show", v); });
+  var bq=document.getElementById("tbQ"), ba=document.getElementById("tbA");
+  if(bq) bq.classList.toggle("active", !v);
+  if(ba) ba.classList.toggle("active", v);
+}
+function checkChoice(btn, qIdx, cIdx){
+  var s = SETS.find(function(x){return x.id===state.currentId});
+  var q = s.questions[qIdx];
+  var container = btn.closest(".q");
+  var choices = container.querySelectorAll(".choice");
+  choices.forEach(function(el){ el.classList.remove("correct","wrong"); });
+  if(cIdx===q.answer){ btn.classList.add("correct"); }
+  else { btn.classList.add("wrong"); choices[q.answer].classList.add("correct"); }
+  var ans = document.getElementById("ans-"+qIdx);
+  if(ans) ans.classList.add("show");
+  // update toggle UI
+  var ba=document.getElementById("tbA"), bq=document.getElementById("tbQ");
+  // keep as is; answers partially shown is fine
+}
+function closeDetail(){ $("detail").classList.remove("open"); $("detail").innerHTML=""; state.currentId=null; window.scrollTo({top:0,behavior:"smooth"}); }
+function plainText(html){
+  var d=document.createElement("div"); d.innerHTML=html.replace(/<br\s*\/?>/gi,"\n");
+  return (d.textContent||"").replace(/\u00a0/g," ").trim();
+}
+function buildDocHtml(s, withAnswers){
+  var rows = "", curSec = null, secCount = 0;
+  s.questions.forEach(function(q,i){
+    if(q.sec && q.sec !== curSec){
+      curSec = q.sec; secCount = 0;
+      rows += "<h2 style='font-size:16px;margin:24px 0 4px'>"+q.sec+"</h2>";
+      if(q.secNote) rows += "<p style='color:#555;font-size:13px;margin:0 0 6px'>"+q.secNote+"</p>";
+    }
+    secCount++;
+    var label = q.sec ? "("+secCount+")" : "QUESTION "+(i+1);
+    var choices = q.choices ? "<ol style='list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:14px'>"+q.choices.map(function(c,ci){ return "<li><b>"+String.fromCharCode(65+ci)+".</b> "+c+"</li>"; }).join("")+"</ol>" : "";
+    var ans = withAnswers ? "<div style='background:#eef7f4;border-radius:8px;padding:10px 12px;margin-top:10px;font-size:14px;line-height:1.7'>"+q.exp+"</div>" : "";
+    rows += "<section style='padding:14px 0;border-bottom:1px solid #e5e7eb'><div style='font-size:12px;font-weight:700;color:#0f766e;letter-spacing:.06em'>"+label+"</div><div style='font-size:15px;line-height:1.8;margin:6px 0 8px'>"+q.q+"</div>"+choices+ans+"</section>";
+  });
+  var pointsHtml = s.points ? "<div style='background:#eff6ff;border-radius:8px;padding:12px 14px;margin:14px 0;font-size:13.5px;line-height:1.8'><b>ポイント復習</b><ul style='margin:6px 0 0;padding-left:18px'>"+s.points.split("／").map(function(p){return "<li>"+p+"</li>"}).join("")+"</ul></div>" : "";
+  return "<!doctype html><html lang='ja'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>"+s.title+"</title><style>body{font-family:sans-serif;max-width:760px;margin:0 auto;padding:28px 20px;color:#111;line-height:1.7}h1{font-size:20px;line-height:1.4;margin:4px 0} .meta{color:#666;font-size:13px} .en{font-family:Georgia,serif} .blank{display:inline-block;min-width:64px;border-bottom:2px solid #111;text-align:center} .fill-note{color:#666;font-size:13px}@media print{body{padding:0}}</style></head><body>"
+    + "<div class='meta'>英語宿題 ・ "+s.unit+" ・ "+s.step+" ・ "+s.dateLabel+(withAnswers?" ・ 解答・解説つき":" ・ 問題のみ")+"</div>"
+    + "<h1>"+s.title+"</h1><p class='meta'>"+s.desc+"　／　全"+s.questions.length+"問 ・ 目安 "+s.mins+"分　／　名前：＿＿＿＿＿＿＿＿　日付：＿＿＿＿＿＿＿＿</p>"
+    + pointsHtml
+    + rows
+    + "<p style='color:#666;font-size:12px;margin-top:18px'>このファイルは印刷して使うことも、ブラウザの印刷機能でPDFとして保存することもできます。</p></body></html>";
+}
+function buildPlainText(s, withAnswers){
+  var lines = [];
+  lines.push(s.title);
+  lines.push("英語宿題 ・ "+s.unit+" ・ "+s.step+" ・ "+s.dateLabel+(withAnswers?" ・ 解答・解説つき":" ・ 問題のみ"));
+  lines.push("全"+s.questions.length+"問 ・ 目安 "+s.mins+"分");
+  lines.push("");
+  if(s.points){
+    lines.push("【ポイント復習】");
+    s.points.split("／").forEach(function(p){ lines.push("・"+p); });
+    lines.push("");
+  }
+  var curSec = null, secCount = 0;
+  s.questions.forEach(function(q,i){
+    if(q.sec && q.sec !== curSec){
+      curSec = q.sec; secCount = 0;
+      lines.push("■ "+q.sec);
+      if(q.secNote) lines.push(q.secNote);
+    }
+    secCount++;
+    var label = q.sec ? "("+secCount+")" : "Question "+(i+1);
+    lines.push(label+"　"+plainText(q.q));
+    if(q.choices){
+      q.choices.forEach(function(c,ci){ lines.push("　"+String.fromCharCode(65+ci)+". "+c); });
+    }
+    if(withAnswers){ lines.push("　"+plainText(q.exp)); }
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+function downloadFileName(s, withAnswers){
+  var step = (s.step||"").replace(/\s+/g,"");
+  return s.unit+"_"+step+"_"+(withAnswers?"解答つき":"問題のみ")+".html";
+}
+function pdfFileName(s, withAnswers){
+  var base = s.title.replace(/[\\\/:*?"<>|]/g,"").replace(/[\s　]+/g,"_").replace(/—/g,"_").replace(/_+/g,"_");
+  return base+"_"+(withAnswers?"解答つき":"問題のみ")+".pdf";
+}
+function showPdfToast(msg, sticky){
+  var t = $("pdfToast");
+  t.textContent = msg;
+  t.classList.add("show");
+  if(!sticky){ setTimeout(function(){ t.classList.remove("show"); }, 4000); }
+}
+function hidePdfToast(){ $("pdfToast").classList.remove("show"); }
+function pdfPlain(html){
+  var t = String(html || "")
+    .replace(/<span class='blank'>[\s\S]*?<\/span>/g, "＿＿＿＿")
+    .replace(/<span class="blank">[\s\S]*?<\/span>/g, "＿＿＿＿")
+    .replace(/<br\s*\/?>/gi, "\n");
+  var d = document.createElement("div");
+  d.innerHTML = t;
+  return (d.textContent || "").replace(/\u00a0/g, " ");
+}
+function pdfBlocks(s, withAnswers){
+  var blocks = [];
+  blocks.push({t:"英語宿題 ・ "+s.unit+" ・ "+s.step+" ・ "+s.dateLabel+(withAnswers?" ・ 解答・解説つき":" ・ 問題のみ"), size:24, color:"#666666", gap:8});
+  blocks.push({t:s.title, size:42, bold:true, gap:8});
+  blocks.push({t:s.desc, size:25, color:"#444444", gap:6});
+  blocks.push({t:"全"+s.questions.length+"問 ・ 目安 "+s.mins+"分　／　名前：＿＿＿＿＿＿＿＿　日付：＿＿＿＿＿＿＿＿", size:25, color:"#444444", gap:16, rule:true});
+  if(s.points){
+    blocks.push({t:"ポイント復習", size:28, bold:true, gap:4});
+    s.points.split("／").forEach(function(p){ blocks.push({t:"・"+p, size:25, gap:2, indent:6}); });
+    blocks.push({t:"", size:10, gap:10});
+  }
+  var curSec = null, secCount = 0;
+  s.questions.forEach(function(q, i){
+    if(q.sec && q.sec !== curSec){
+      curSec = q.sec; secCount = 0;
+      blocks.push({t:q.sec, size:30, bold:true, gap:4, sec:true});
+      if(q.secNote) blocks.push({t:q.secNote, size:23, color:"#555555", gap:8});
+    }
+    secCount++;
+    var label = q.sec ? "("+secCount+")" : "QUESTION "+(i+1);
+    blocks.push({t:label, size:22, bold:true, color:"#0f766e", gap:2, keepNext:true});
+    pdfPlain(q.q).split("\n").forEach(function(line){ if(line.trim()) blocks.push({t:line, size:27, gap:2}); });
+    if(q.choices){
+      q.choices.forEach(function(c, ci){ blocks.push({t:String.fromCharCode(65+ci)+". "+c, size:26, indent:30, gap:2}); });
+    }
+    if(withAnswers){
+      pdfPlain(q.exp).split("\n").forEach(function(line){ if(line.trim()) blocks.push({t:line, size:25, color:"#134e4a", indent:14, gap:2}); });
+    }
+    blocks.push({t:"", size:10, gap:12});
+  });
+  return blocks;
+}
+function generatePdfBlob(s, withAnswers){
+  var PW = 1654, PH = 2339, M = 130, MAXW = PW - M * 2, BOTTOM = PH - 130;
+  var FONT = "'Hiragino Kaku Gothic ProN','Hiragino Sans','Noto Sans JP',sans-serif";
+  var blocks = pdfBlocks(s, withAnswers);
+  var measure = document.createElement("canvas").getContext("2d");
+  function fontFor(b){ return (b.bold ? "700 " : "400 ") + b.size + "px " + FONT; }
+  function wrap(text, b){
+    measure.font = fontFor(b);
+    var max = MAXW - (b.indent || 0);
+    if(!text) return [""];
+    var lines = [], cur = "";
+    var chars = text.split("");
+    for(var i = 0; i < chars.length; i++){
+      var ch = chars[i];
+      if(ch === " " && cur === "") continue;
+      if(cur && measure.measureText(cur + ch).width > max){ lines.push(cur); cur = (ch === " " ? "" : ch); }
+      else cur += ch;
+    }
+    if(cur) lines.push(cur);
+    return lines.length ? lines : [""];
+  }
+  var pages = [], ctx = null, y = 0;
+  function newPage(){
+    var c = document.createElement("canvas");
+    c.width = PW; c.height = PH;
+    var x = c.getContext("2d");
+    x.fillStyle = "#ffffff"; x.fillRect(0, 0, PW, PH);
+    pages.push(c); ctx = x; y = M;
+  }
+  newPage();
+  blocks.forEach(function(b){
+    var lh = Math.round(b.size * 1.55);
+    var lines = wrap(b.t, b);
+    var need = lines.length * lh + (b.gap || 0) + (b.sec ? 30 : 0);
+    if(b.keepNext) need += lh * 2;
+    if(y + need > BOTTOM && y > M + 10) newPage();
+    if(b.sec){
+      ctx.strokeStyle = "#cccccc"; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(M, y - 12); ctx.lineTo(PW - M, y - 12); ctx.stroke();
+      y += 18;
+    }
+    ctx.font = fontFor(b); ctx.fillStyle = b.color || "#111111"; ctx.textBaseline = "top";
+    lines.forEach(function(line){
+      if(y + lh > BOTTOM){
+        newPage();
+        ctx.font = fontFor(b); ctx.fillStyle = b.color || "#111111"; ctx.textBaseline = "top";
+      }
+      if(line) ctx.fillText(line, M + (b.indent || 0), y);
+      y += lh;
+    });
+    y += (b.gap || 0);
+    if(b.rule){
+      ctx.strokeStyle = "#dddddd"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(M, y - 8); ctx.lineTo(PW - M, y - 8); ctx.stroke();
+    }
+  });
+  pages.forEach(function(c, i){
+    var x = c.getContext("2d");
+    x.font = "400 22px " + FONT; x.fillStyle = "#888888"; x.textBaseline = "alphabetic";
+    var txt = (i + 1) + " / " + pages.length;
+    x.fillText(txt, PW - M - x.measureText(txt).width, PH - 54);
+  });
+  return pdfFromCanvases(pages);
+}
+function pdfFromCanvases(pages){
+  var enc = new TextEncoder();
+  var chunks = [], offsets = [], length = 0;
+  function push(bytes){ chunks.push(bytes); length += bytes.length; }
+  function pushStr(str){ push(enc.encode(str)); }
+  pushStr("%PDF-1.4\n");
+  offsets[1] = length;
+  pushStr("1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n");
+  var kids = pages.map(function(_, i){ return (3 + i * 3) + " 0 R"; }).join(" ");
+  offsets[2] = length;
+  pushStr("2 0 obj\n<< /Type /Pages /Kids [" + kids + "] /Count " + pages.length + " >>\nendobj\n");
+  pages.forEach(function(c, i){
+    var pageId = 3 + i * 3, contentId = 4 + i * 3, imageId = 5 + i * 3;
+    var dataUrl = c.toDataURL("image/jpeg", 0.92);
+    var b64 = dataUrl.substring(dataUrl.indexOf(",") + 1);
+    var bin = atob(b64);
+    var jpg = new Uint8Array(bin.length);
+    for(var j = 0; j < bin.length; j++) jpg[j] = bin.charCodeAt(j);
+    offsets[pageId] = length;
+    pushStr(pageId + " 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /XObject << /Im0 " + imageId + " 0 R >> >> /Contents " + contentId + " 0 R >>\nendobj\n");
+    var content = "q\n595.28 0 0 841.89 0 0 cm\n/Im0 Do\nQ\n";
+    offsets[contentId] = length;
+    pushStr(contentId + " 0 obj\n<< /Length " + content.length + " >>\nstream\n" + content + "endstream\nendobj\n");
+    offsets[imageId] = length;
+    pushStr(imageId + " 0 obj\n<< /Type /XObject /Subtype /Image /Width " + c.width + " /Height " + c.height + " /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " + jpg.length + " >>\nstream\n");
+    push(jpg);
+    pushStr("\nendstream\nendobj\n");
+  });
+  var xrefPos = length;
+  var maxObj = 2 + pages.length * 3;
+  pushStr("xref\n0 " + (maxObj + 1) + "\n");
+  pushStr("0000000000 65535 f \n");
+  for(var k = 1; k <= maxObj; k++){
+    var off = String(offsets[k]);
+    while(off.length < 10) off = "0" + off;
+    pushStr(off + " 00000 n \n");
+  }
+  pushStr("trailer\n<< /Size " + (maxObj + 1) + " /Root 1 0 R >>\nstartxref\n" + xrefPos + "\n%%EOF");
+  return new Blob(chunks, {type:"application/pdf"});
+}
+function openPdfReady(s, withAnswers, url){
+  state.dlId = s.id; state.dlWith = !!withAnswers;
+  state.dlText = buildPlainText(s, withAnswers);
+  if(state.dlUrl && state.dlUrl !== url){ try{ URL.revokeObjectURL(state.dlUrl); }catch(e){} }
+  state.dlUrl = url;
+  $("dlTitle").textContent = withAnswers ? "解答つきPDFができました" : "問題PDFができました";
+  $("dlMeta").textContent = s.title + " ／ 全" + s.questions.length + "問";
+  $("dlNote").textContent = "ダウンロードを開始しました。自動で保存が始まらない場合は、下の「PDFを開く」を押してPDFを表示し、開いた画面の保存ボタンから保存してください。";
+  $("dlNote2").textContent = "「この端末に保存する（PDF）」を押してもう一度保存することもできます。印刷して使いたい場合は「印刷用にこのページで開く」も使えます。";
+  var saveLink = $("dlSave"), openLink = $("dlOpen");
+  saveLink.href = url; saveLink.setAttribute("download", pdfFileName(s, withAnswers)); saveLink.style.display = "";
+  saveLink.textContent = "この端末に保存する（PDF）";
+  openLink.href = url; openLink.style.display = "";
+  openLink.textContent = "PDFを開く";
+  $("dlMsg").textContent = "PDFのダウンロードを開始しました。";
+  $("dlModal").style.display = "flex";
+}
+function openFallbackSheet(s, withAnswers){
+  state.dlId = s.id; state.dlWith = !!withAnswers;
+  state.dlText = buildPlainText(s, withAnswers);
+  var modal = $("dlModal");
+  $("dlTitle").textContent = (withAnswers ? "解答・解説つきでダウンロード" : "問題をダウンロード");
+  $("dlMeta").textContent = s.title+" ／ 全"+s.questions.length+"問";
+  $("dlNote").textContent = "PDFの作成に失敗したため、代わりの保存方法をご案内します。下の「この端末に保存する」を押すと印刷用ファイル（HTML）が保存されます。保存したファイルを開き、ブラウザの印刷機能からPDFとして保存できます。";
+  $("dlNote2").textContent = "スマホで保存が始まらないときは、「印刷用にこのページで開く」を選び、ブラウザの共有／印刷メニューからPDFとして保存してください。テキストのコピーでも内容を持ち出せます。";
+  $("dlMsg").textContent = "";
+  var saveLink = $("dlSave"), openLink = $("dlOpen");
+  var url = null;
+  try {
+    var blob = new Blob([buildDocHtml(s, withAnswers)], {type:"text/html;charset=utf-8"});
+    url = URL.createObjectURL(blob);
+  } catch(e){ url = null; }
+  if(state.dlUrl){ try{ URL.revokeObjectURL(state.dlUrl); }catch(e){} }
+  state.dlUrl = url;
+  if(url){
+    saveLink.href = url; saveLink.setAttribute("download", downloadFileName(s, withAnswers)); saveLink.style.display = "";
+    saveLink.textContent = "この端末に保存する";
+    openLink.href = url; openLink.style.display = "";
+    openLink.textContent = "ブラウザで開く";
+    $("dlMsg").textContent = "PDFを作成できませんでした。上の「この端末に保存する」から印刷用ファイルを保存し、開いて印刷機能でPDF保存してください。";
+  } else {
+    saveLink.style.display = "none"; openLink.style.display = "none";
+    $("dlMsg").textContent = "この端末ではファイル保存が使えませんでした。下の「印刷用にこのページで開く」か「テキストをコピーする」を使ってください。";
+  }
+  modal.style.display = "flex";
+}
+function downloadSet(id, withAnswers){
+  var s = SETS.find(function(x){return x.id===id});
+  if(!s) return;
+  state.dlId = id; state.dlWith = !!withAnswers;
+  showPdfToast("PDFを作成しています…少々お待ちください", true);
+  setTimeout(function(){
+    try {
+      var blob = generatePdfBlob(s, withAnswers);
+      if(!blob || blob.size < 1000) throw new Error("pdf generation failed");
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = pdfFileName(s, withAnswers);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      hidePdfToast();
+      openPdfReady(s, withAnswers, url);
+    } catch(e){
+      hidePdfToast();
+      openFallbackSheet(s, withAnswers);
+    }
+  }, 40);
+}
+function closeDownloadModal(){ $("dlModal").style.display = "none"; }
+function showPrintSheet(){
+  var s = SETS.find(function(x){return x.id===state.dlId});
+  if(!s) return;
+  var withAnswers = !!state.dlWith;
+  closeDownloadModal();
+  closeDetail();
+  var html = '<div class="sheet-toolbar"><button class="btn" onclick="backFromSheet()">← 一覧に戻る</button><span class="spacer"></span><span class="meta">ブラウザの印刷／共有メニューから印刷・PDF保存できます</span></div>';
+  html += '<div class="sheet-body">';
+  html += '<span class="badge '+(s.type==="review"?"badge-review":"badge-extra")+'">'+s.typeLabel+' ・ '+s.unit+' ・ '+s.step+(withAnswers?' ・ 解答・解説つき':' ・ 問題のみ')+'</span>';
+  html += '<h2>'+s.title+'</h2><p class="sheet-meta">'+s.dateLabel+' 追加 ・ 全'+s.questions.length+'問 ・ 目安 '+s.mins+'分　／　名前：＿＿＿＿＿＿＿＿　日付：＿＿＿＿＿＿＿＿</p><p class="sheet-meta">'+s.desc+'</p>';
+  if(s.points){ html += '<div class="sheet-points"><strong>ポイント復習</strong><ul>' + s.points.split("／").map(function(p){return '<li>'+p+'</li>'}).join("") + '</ul></div>'; }
+  var curSec = null, secCount = 0;
+  s.questions.forEach(function(q, idx){
+    if(q.sec && q.sec !== curSec){
+      curSec = q.sec; secCount = 0;
+      html += '<div class="sec-head">'+q.sec+'</div>';
+      if(q.secNote) html += '<p class="sec-note">'+q.secNote+'</p>';
+    }
+    secCount++;
+    var label = q.sec ? '('+secCount+')' : 'Question '+(idx+1);
+    html += '<div class="q"><div class="q-num">'+label+'</div><div class="q-text">'+q.q+'</div>';
+    if(q.choices){
+      html += '<div style="display:grid;gap:6px;font-size:14.5px">';
+      q.choices.forEach(function(c, ci){ html += '<div><b>'+String.fromCharCode(65+ci)+'.</b> '+c+'</div>'; });
+      html += '</div>';
+    }
+    if(withAnswers){ html += '<div class="answer-box show">'+q.exp+'</div>'; }
+    html += '</div>';
+  });
+  html += '</div>';
+  var sheet = $("printSheet");
+  sheet.innerHTML = html;
+  document.body.classList.add("sheet-mode");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function backFromSheet(){
+  document.body.classList.remove("sheet-mode");
+  $("printSheet").innerHTML = "";
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function copySetText(){
+  var msg = $("dlMsg");
+  var text = state.dlText || "";
+  function done(){ msg.textContent = "テキストをコピーしました。メモやWordなどに貼り付けられます。"; }
+  function failed(){ msg.textContent = "コピーできませんでした。「印刷用にこのページで開く」を使ってください。"; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text) ? done() : failed(); });
+  } else { fallbackCopy(text) ? done() : failed(); }
+}
+function fallbackCopy(text){
+  try {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    var ok = document.execCommand("copy");
+    ta.remove(); return ok;
+  } catch(e){ return false; }
+}
+
+// download sheet events
+$("dlCloseBtn").addEventListener("click", closeDownloadModal);
+$("dlPrintBtn").addEventListener("click", showPrintSheet);
+$("dlCopyBtn").addEventListener("click", copySetText);
+$("dlModal").addEventListener("click", function(e){ if(e.target===this) closeDownloadModal(); });
+document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeDownloadModal(); });
+
+// events
+document.querySelectorAll("[data-filter]").forEach(function(b){
+  b.addEventListener("click", function(){
+    document.querySelectorAll("[data-filter]").forEach(function(x){x.classList.remove("active")});
+    this.classList.add("active");
+    state.filter=this.getAttribute("data-filter");
+    render();
+  });
+});
+$("search").addEventListener("input", function(){ state.query=this.value; render(); });
+$("sort").addEventListener("change", function(){ state.sort=this.value; render(); });
+
+render();
+</script>
+</body>
+</html>
