@@ -163,7 +163,7 @@ body.sheet-mode .top,body.sheet-mode .controls,body.sheet-mode .result-line,body
     <div class="top-meta">
       <span class="pill">公開中 <b id="countSets">—</b> セット</span>
       <span class="pill">全 <b id="countQs">—</b> 問</span>
-      <span class="pill">最終追加 <b>2026年11月24日</b></span>
+      <span class="pill">最終追加 <b>2026年11月27日</b></span>
     </div>
     <div class="how" aria-label="使い方">
       <div><strong>1. 探す</strong><span>単元名・日付・キーワードで検索できます。「まとめ」だけ絞ることもできます。</span></div>
@@ -375,6 +375,58 @@ var SETS = [
       {sec:"大問6　和訳", q:"<span class='en'>Now that the exams are over, let's take a trip.</span>", exp:"<b>答え：今は試験が終わったので、旅行に行こう。</b> — now that は「今は…ので」。"},
       {sec:"大問6　和訳", q:"<span class='en'>She wrote down his address so that she would not forget it.</span><br><span class='fill-note'>※write down：書き留める　address：住所</span>", exp:"<b>答え：彼女は忘れないように、彼の住所を書き留めた。</b> — so that はここでは「目的（…するように）」。"},
       {sec:"大問6　和訳", q:"<span class='en'>The soup was so hot that I couldn't eat it at once.</span><br><span class='fill-note'>※soup：スープ　at once：すぐに</span>", exp:"<b>答え：そのスープはとても熱かったので、私はすぐに食べることができなかった。</b> — so ～ that … は「とても～なので…」と訳すと自然です。"}
+    ]
+  },
+  {
+    id:"as-comp-1", unit:"副詞節・比較", step:"Step 1", type:"extra", typeLabel:"追加演習",
+    title:"副詞節（4）as・原級比較 Step 1 — Lesson 60・61",
+    date:"2026-11-27", dateLabel:"2026年11月27日",
+    desc:"Lesson 60（従属接続詞 as の時・比例・理由・様態）と Lesson 61（原級を用いた比較）の追加演習です。適語選択・並べ替え（一部）・並べ替え（全部）・部分英作文・穴埋め・和訳の6形式 × 各7問 ＝ 42問（各1点・計42点）。譲歩の as（Busy as she is 型）は扱いません。",
+    tags:[], mins:35,
+    points:"従属接続詞 as の意味は文意から判断する：①「…の時に」（時）②「…するにつれて」（比例）③「…ので」（理由）④「…するように／…と同じように」（様態）／比例の as は、比較級や「変化・増減」を表す言葉（become・grow・increase など）と一緒に使われることが多い／理由の as は because・since より意味が弱い／原級を用いた比較：as＋原級（形容詞・副詞）＋as ～ で「～と同じくらい…」／否定：not as＋原級＋as ～（not so＋原級＋as ～ でもよい）で「～ほど…ではない」／後ろの文の、前と重なる部分は省略できる。主語をはっきりさせたいときは be動詞・助動詞を残す（as Mary is・as you can）",
+    questions:[
+      {sec:"大問1　適語選択", secNote:"次の英文の空欄に入る最も適切なものを、①～④の中から1つ選びなさい。（各1点）", q:"<span class='en'><span class='blank'>&nbsp;</span> we arrived at the station, the train was leaving.</span>", choices:["As","Unless","So that","Whether"], answer:0, exp:"<b>答え：As</b> — 「私たちが駅に着いたとき、電車が出発するところだった」という「時」を表す as。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>As the days <span class='blank'>&nbsp;</span>, the weather became warmer.</span>", choices:["passed","will pass","pass","passing"], answer:0, exp:"<b>答え：passed</b> — 主節 became が過去形なので、as節も過去形にそろえます。「日がたつにつれて」という比例の as。"},
+      {sec:"大問1　適語選択", q:"<span class='en'><span class='blank'>&nbsp;</span> it was getting dark, we hurried home.</span><br><span class='fill-note'>※hurry：急ぐ</span>", choices:["As","If","Unless","Though"], answer:0, exp:"<b>答え：As</b> — 「暗くなってきたので、家に急いだ」という理由を表す as。Though（譲歩）では意味が通りません。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>Write your name here <span class='blank'>&nbsp;</span> I showed you.</span>", choices:["as","if","unless","until"], answer:0, exp:"<b>答え：as</b> — 「私が見せたように」という様態を表す as。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>This box is as <span class='blank'>&nbsp;</span> as that one.</span>", choices:["heavy","heavier","heaviest","too"], answer:0, exp:"<b>答え：heavy</b> — as と as の間には原級（形容詞・副詞の元の形）を入れます。比較級 heavier は入りません。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>He is not as <span class='blank'>&nbsp;</span> as his brother.</span>", choices:["tall","taller","tallest","much"], answer:0, exp:"<b>答え：tall</b> — not as … as の間も原級です。taller は入りません。"},
+      {sec:"大問1　適語選択", q:"<span class='en'>She sings as <span class='blank'>&nbsp;</span> as her sister.</span>", choices:["well","better","best","good"], answer:0, exp:"<b>答え：well</b> — sings（動詞）を修飾するので、副詞の原級 well。good は形容詞なので不可です。"},
+      {sec:"大問2　並べ替え（一部）", secNote:"次の日本語に合う英文になるように、（　）内の語句を正しい順に並べ替えなさい。ただし、文頭に来る語も小文字で示してあります。（各1点）", q:"練習するにつれて、私はより速く走れるようになりました。<br><span class='en'>( as / I / practiced ), I ran faster.</span>", exp:"<b>答え：As I practiced, I ran faster.</b> — as は「…するにつれて」（比例）。practiced と ran の過去形にそろっています。"},
+      {sec:"大問2　並べ替え（一部）", q:"彼が部屋に入ったとき、全員が静かになりました。<br><span class='en'>( as / he / entered / the room ), everyone became quiet.</span><br><span class='fill-note'>※quiet：静かな</span>", exp:"<b>答え：As he entered the room, everyone became quiet.</b> — as は「…の時に」（時）。"},
+      {sec:"大問2　並べ替え（一部）", q:"私が言ったように、宿題をしなさい。<br><span class='en'>Do the homework ( as / I / told / you ).</span>", exp:"<b>答え：Do the homework as I told you.</b> — as は「…するように」（様態）。as I told you は「私が言ったように」。"},
+      {sec:"大問2　並べ替え（一部）", q:"雨が降っていたので、試合は中止になりました。<br><span class='en'>( as / it / was / raining ), the game was canceled.</span><br><span class='fill-note'>※cancel：中止する</span>", exp:"<b>答え：As it was raining, the game was canceled.</b> — as は理由「…ので」。過去の話なので was raining。"},
+      {sec:"大問2　並べ替え（一部）", q:"彼女は私と同じくらい速く走ります。<br><span class='en'>She runs ( as / fast / as / I / do ).</span>", exp:"<b>答え：She runs as fast as I do.</b> — as fast as ～ は「～と同じくらい速く」。後ろの do は runs を受ける形で残しています。"},
+      {sec:"大問2　並べ替え（一部）", q:"この本はあの本ほどおもしろくありません。<br><span class='en'>This book is ( not / as / interesting / as ) that one.</span>", exp:"<b>答え：This book is not as interesting as that one.</b> — not as ＋ 原級（interesting）＋ as ～ で「～ほど…ではない」。"},
+      {sec:"大問2　並べ替え（一部）", q:"彼は兄と同じくらいの身長です。<br><span class='en'>He is ( as / tall / as / his brother / is ).</span>", exp:"<b>答え：He is as tall as his brother is.</b> — 後ろの is は「兄が（背が高い）」という主語をはっきりさせるために残した be動詞です。"},
+      {sec:"大問3　並べ替え（全部）", secNote:"次の日本語に合う英文になるように、（　）内の語句をすべて使って、正しい順に並べ替えなさい。ただし、文頭に来る語も小文字で示してあります。（各1点）", q:"気温が上がるにつれて、氷がとけました。<br><span class='en'>( as / the temperature / rose / the ice / melted )</span><br><span class='fill-note'>※temperature：気温　melt：とける</span>", exp:"<b>答え：As the temperature rose, the ice melted.</b> — as は比例「…するにつれて」。rose は rise の過去形です。"},
+      {sec:"大問3　並べ替え（全部）", q:"私たちが夕食を食べているときに、地震がありました。<br><span class='en'>( as / we / were / having / dinner / there / was / an / earthquake )</span><br><span class='fill-note'>※earthquake：地震</span>", exp:"<b>答え：As we were having dinner, there was an earthquake.</b> — as は時「…の時に」。were having は過去進行形で、食事中のできごとを表します。"},
+      {sec:"大問3　並べ替え（全部）", q:"私は鳥がするように空を飛びたい。<br><span class='en'>( I / want / to fly / as / birds / do )</span>", exp:"<b>答え：I want to fly as birds do.</b> — as birds do は「鳥がするように」という様態。do は fly を受ける形です。"},
+      {sec:"大問3　並べ替え（全部）", q:"彼女は忙しかったので、私を手伝うことができませんでした。<br><span class='en'>( as / she / was / busy / she / could / not / help / me )</span>", exp:"<b>答え：As she was busy, she could not help me.</b> — as は理由「…ので」。"},
+      {sec:"大問3　並べ替え（全部）", q:"私の犬は猫と同じくらい小さいです。<br><span class='en'>( my dog / is / as / small / as / a cat )</span>", exp:"<b>答え：My dog is as small as a cat.</b> — as small as ～ は「～と同じくらい小さい」。"},
+      {sec:"大問3　並べ替え（全部）", q:"彼は私と同じくらい上手にギターを弾けます。<br><span class='en'>( he / can / play / the guitar / as / well / as / I / can )</span>", exp:"<b>答え：He can play the guitar as well as I can.</b> — as well as ～ は「～と同じくらい上手に」。後ろの can は play を受ける形で残しています。"},
+      {sec:"大問3　並べ替え（全部）", q:"今日は昨日ほど寒くありません。<br><span class='en'>( it / is / not / as / cold / as / it / was / yesterday )</span>", exp:"<b>答え：It is not as cold as it was yesterday.</b> — not as cold as ～ で「～ほど寒くない」。後ろは it was yesterday と、昨日の様子と比較しています。"},
+      {sec:"大問4　部分英作文", secNote:"次の英文の（　　）に入る部分を、［　］の日本語に合うように英語で書きなさい。（　　）の外は書き換えなくてよい。（各1点）", q:"<span class='en'>As (　　), I heard a strange sound.</span><br>［私が歩いているときに］<br><span class='fill-note'>※strange：変な</span>", exp:"<b>答え：I was walking</b>（完成文：As I was walking, I heard a strange sound.）— 「歩いているときに」なので過去進行形 I was walking。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>As (　　), the price went up.</span><br>［需要が増えるにつれて（increase を使うこと）］<br><span class='fill-note'>※demand：需要</span>", exp:"<b>答え：the demand increased</b>（完成文：As the demand increased, the price went up.）— 主節 went up が過去形なので、as節も過去形 increased にそろえます。as は比例です。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>I opened the window as (　　).</span><br>［部屋が暑かったので］", exp:"<b>答え：the room was hot</b>（完成文：I opened the window as the room was hot.）— as は理由「…ので」。窓を開けた理由を表します。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>Copy the sentences as (　　).</span><br>［先生が書いたように（write を使うこと）］", exp:"<b>答え：the teacher wrote them</b>（完成文：Copy the sentences as the teacher wrote them.）— as は様態「…するように」。them は the sentences を受けます。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>Ken is (　　) Tom.</span><br>［トムと同じくらい背が高い］", exp:"<b>答え：as tall as</b>（完成文：Ken is as tall as Tom.）— as ＋ 原級（tall）＋ as で「～と同じくらい…」。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>This question is (　　) the last one.</span><br>［前の問題ほど難しくない］", exp:"<b>答え：not as difficult as</b>（完成文：This question is not as difficult as the last one.）— not so difficult as ～ でもよいです。"},
+      {sec:"大問4　部分英作文", q:"<span class='en'>He can swim (　　).</span><br>［私と同じくらい上手に（can を使うこと）］", exp:"<b>答え：as well as I can</b>（完成文：He can swim as well as I can.）— 後ろの can は swim を受ける形で残しています。"},
+      {sec:"大問5　穴埋め", secNote:"次の英文の（　　）に入る適切な語を1語書きなさい。（各1点）", q:"<span class='en'>He is as tall <span class='blank'>&nbsp;</span> his brother.</span><br>彼は兄と同じくらい背が高い。", exp:"<b>答え：as</b>（完成文：He is as tall as his brother.）— as ＋ 原級 ＋ as の2つ目の as です。"},
+      {sec:"大問5　穴埋め", q:"<span class='en'>It is not as warm <span class='blank'>&nbsp;</span> yesterday.</span><br>今日は昨日ほど暖かくない。", exp:"<b>答え：as</b>（完成文：It is not as warm as yesterday.）— 「～ほど…ではない」の形を完成させます。"},
+      {sec:"大問5　穴埋め", q:"<span class='en'><span class='blank'>&nbsp;</span> it snowed harder, the road became hard to see.</span><br>雪が強く降るにつれて、道が見えにくくなった。<br><span class='fill-note'>※harder：より強く</span>", exp:"<b>答え：As</b>（完成文：As it snowed harder, the road became hard to see.）— 文頭の as は比例「…するにつれて」。"},
+      {sec:"大問5　穴埋め", q:"<span class='en'>Do <span class='blank'>&nbsp;</span> I did.</span><br>私がしたようにしなさい。", exp:"<b>答え：as</b>（完成文：Do as I did.）— as は様態「…するように」。"},
+      {sec:"大問5　穴埋め", q:"<span class='en'>She can sing as well <span class='blank'>&nbsp;</span> her sister can.</span><br>彼女は姉と同じくらい上手に歌える。", exp:"<b>答え：as</b>（完成文：She can sing as well as her sister can.）— as ＋ 原級 ＋ as の2つ目の as です。"},
+      {sec:"大問5　穴埋め", q:"<span class='en'>This street is not <span class='blank'>&nbsp;</span> wide as that one.</span><br>この通りはあの通りほど広くない。", exp:"<b>答え：as</b>（完成文：This street is not as wide as that one.）— not as ＋ 原級 ＋ as の1つ目の as。so でもよいです（not so wide as ～）。"},
+      {sec:"大問5　穴埋め", q:"<span class='en'>Write it <span class='blank'>&nbsp;</span> you hear it.</span><br>聞いたとおりに、それを書きなさい。", exp:"<b>答え：as</b>（完成文：Write it as you hear it.）— as は様態「…のとおりに」。"},
+      {sec:"大問6　和訳", secNote:"次の英文を日本語に直しなさい。（各1点）", q:"<span class='en'>As I opened the window, a cool wind came in.</span><br><span class='fill-note'>※wind：風</span>", exp:"<b>答え：私が窓を開けたとき、涼しい風が入ってきた。</b> — as は時「…の時に」。"},
+      {sec:"大問6　和訳", q:"<span class='en'>As spring comes, the flowers begin to bloom.</span><br><span class='fill-note'>※bloom：咲く</span>", exp:"<b>答え：春が来るにつれて、花が咲き始める。</b> — as は比例「…するにつれて」。"},
+      {sec:"大問6　和訳", q:"<span class='en'>As I had no money, I couldn't buy the book.</span>", exp:"<b>答え：私はお金がなかったので、その本を買うことができなかった。</b> — as は理由「…ので」。had no money は「お金を持っていなかった」。"},
+      {sec:"大問6　和訳", q:"<span class='en'>Do as the teacher says.</span>", exp:"<b>答え：先生が言うようにしなさい。</b> — as は様態「…するように」。"},
+      {sec:"大問6　和訳", q:"<span class='en'>This river is as wide as that one.</span>", exp:"<b>答え：この川はあの川と同じくらいの広さだ。</b> — as wide as ～ は「～と同じくらい広い」。"},
+      {sec:"大問6　和訳", q:"<span class='en'>He is not as busy as before.</span><br><span class='fill-note'>※before：以前</span>", exp:"<b>答え：彼は以前ほど忙しくない。</b> — not as busy as before は「以前ほど忙しくない」。"},
+      {sec:"大問6　和訳", q:"<span class='en'>She can type as fast as her brother can.</span><br><span class='fill-note'>※type：タイピングする</span>", exp:"<b>答え：彼女は兄と同じくらい速くタイピングできる。</b> — 後ろの can は type を受ける形で残されています。"}
     ]
   },
   {
